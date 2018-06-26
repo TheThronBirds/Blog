@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class Topic extends BaseDomain {
 
-    private User user;
+    private User user_yh;
 
     private Tab tab;
 
@@ -51,11 +51,11 @@ public class Topic extends BaseDomain {
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.user_yh = user;
     }
 
     public User getUser() {
-        return user;
+        return user_yh;
     }
 
     public Integer getId() {

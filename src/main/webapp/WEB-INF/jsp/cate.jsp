@@ -6,7 +6,7 @@
     <meta name="Content-Type"  content="text/html;charset=utf-8">
     <meta name="keywords" content="Genesis,论坛,社区,程序员">
     <title>Genesis - 一个分享创造的开发者社区  </title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <script src="/js/jquery-3.2.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <style>

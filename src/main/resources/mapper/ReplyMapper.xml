@@ -11,7 +11,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="device" property="device" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
-    <association property="user" javaType="com.withstars.domain.User">
+    <association property="user_yh" javaType="com.withstars.domain.User">
       <id column="id" property="id" jdbcType="INTEGER" />
       <result column="username" property="username" jdbcType="VARCHAR" />
       <result column="avatar" property="avatar" jdbcType="VARCHAR" />
@@ -21,9 +21,9 @@
 
 
   <select id="getRepliesOfTopic" resultMap="replyAndUser" parameterType="java.lang.Integer" >
-  SELECT reply.*,user.username,user.avatar
-  from reply,user
-  where reply.reply_user_id = user.id and reply.topic_id = #{topicId,jdbcType=INTEGER}
+  SELECT reply.*,user_yh.username,user_yh.avatar
+  from reply,user_yh
+  where reply.reply_user_id = user_yh.id and reply.topic_id = #{topicId,jdbcType=INTEGER}
   order by create_time ASC ;
   </select>
 

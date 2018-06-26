@@ -28,7 +28,7 @@
     <result column="click" property="click" jdbcType="INTEGER" />
     <result column="tab_id" property="tabId" jdbcType="TINYINT" />
     <result column="count_replies" property="countReplies" jdbcType="INTEGER" />
-    <association property="user" javaType="com.withstars.domain.User">
+    <association property="user_yh" javaType="com.withstars.domain.User">
       <id column="id" property="id" jdbcType="INTEGER" />
       <result column="username" property="username" jdbcType="VARCHAR" />
       <result column="avatar" property="avatar" jdbcType="VARCHAR" />
@@ -49,7 +49,7 @@
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
     <result column="click" property="click" jdbcType="INTEGER" />
     <result column="tab_id" property="tabId" jdbcType="TINYINT" />
-    <association property="user" javaType="com.withstars.domain.User">
+    <association property="user_yh" javaType="com.withstars.domain.User">
       <id column="id" property="id" jdbcType="INTEGER" />
       <result column="username" property="username" jdbcType="VARCHAR" />
       <result column="avatar" property="avatar" jdbcType="VARCHAR" />
@@ -72,21 +72,25 @@
   </sql>
 
   <select id="listTopicsAndUsers" resultMap="topicAndUserInfo" >
-    select topic.id,topic.user_id,topic.create_time,topic.update_time,topic.title,topic.click,topic.tab_id,user.username,user.avatar ,
-    tab.tab_name,count(reply.id) as count_replies from topic LEFT JOIN user on  topic.user_id = user.id
+    <!-- select topic.id,topic.user_id,topic.create_time,topic.update_time,topic.title,topic.click,topic.tab_id,user_yh.username,user_yh.avatar ,
+    tab.tab_name,count(reply.id) as count_replies from topic LEFT JOIN user_yh on  topic.user_id = user_yh.id
 	LEFT JOIN tab on tab.id=topic.tab_id LEFT JOIN reply on topic.id=reply.topic_id
-	group by topic.id order by topic.id desc ;
+	group by topic.id order by topic.id desc ;-->
+	select topic.id,max(topic.user_id) user_id,max(topic.create_time) create_time,max(topic.update_time) update_time,max(topic.title) title,max(topic.click) click,max(topic.tab_id) tab_id,max(user_yh.username) username,max(user_yh.avatar) avatar,
+    max(tab.tab_name) tab_name,count(reply.id) as count_replies from topic LEFT JOIN user_yh on  topic.user_id = user_yh.id
+	LEFT JOIN tab on tab.id=topic.tab_id LEFT JOIN reply on topic.id=reply.topic_id
+	group by topic.id order by topic.id desc
   </select>
 
   <select id="listTopicsAndUsersOfTab" parameterType="java.lang.Integer" resultMap="topicAndUserInfo" >
-   select topic.id,topic.user_id,topic.create_time,topic.update_time,topic.title,topic.click,topic.tab_id,user.username,user.avatar ,
-    tab.tab_name,count(reply.id) as count_replies from topic LEFT JOIN user on  topic.user_id = user.id
+   select topic.id,topic.user_id,topic.create_time,topic.update_time,topic.title,topic.click,topic.tab_id,user_yh.username,user_yh.avatar ,
+    tab.tab_name,count(reply.id) as count_replies from topic LEFT JOIN user_yh on  topic.user_id = user_yh.id
 	LEFT JOIN tab on tab.id=topic.tab_id  LEFT JOIN reply on topic.id=reply.topic_id where tab.id = #{id,jdbcType=INTEGER}
 	group by topic.id order by topic.id desc ;
   </select>
 
   <select id="selectById" parameterType="java.lang.Integer" resultMap="topicAndUserDetail">
-      SELECT topic.*,user.username,user.avatar from topic,user where topic.user_id = user.id and topic.id = #{id,jdbcType=INTEGER};
+      SELECT topic.*,user_yh.username,user_yh.avatar from topic,user_yh where topic.user_id = user_yh.id and topic.id = #{id,jdbcType=INTEGER};
   </select>
 
 
@@ -105,7 +109,8 @@
   </select>
 
   <select id="listMostCommentsTopics" resultMap="mostCommentsTopic">
-    SELECT topic.id,topic.title,count(reply.id) as count_replies  from topic ,reply  where topic.id = reply.topic_id group by topic.id order by count_replies desc limit 5;
+  		   <!-- SELECT topic.id,topic.title,count(reply.id) as count_replies  from topic ,reply  where topic.id = reply.topic_id group by topic.id order by count_replies desc limit 5;-->
+	   SELECT topic.id,max(topic.title) title,count(reply.id) as count_replies  from topic ,reply where topic.id = reply.topic_id and <![CDATA[ rownum <= 5]]>  group by topic.id order by count_replies desc
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

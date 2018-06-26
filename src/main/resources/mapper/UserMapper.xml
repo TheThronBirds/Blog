@@ -22,34 +22,34 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
-    from user
+    from user_yh
     where id = #{id,jdbcType=INTEGER}
   </select>
 
   <select id="getUserCount" resultType="java.lang.Integer" >
     select
     count(*)
-    from user
+    from user_yh
   </select>
 
 
   <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
-    from user
+    from user_yh
     where username = #{username,jdbcType=VARCHAR}
   </select>
 
   <select id="existUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
-    SELECT count(*) from user where username = #{username,jdbcType=VARCHAR}
+    SELECT count(*) from user_yh where username = #{username,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
+    delete from user_yh
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="addUser" parameterType="com.withstars.domain.User" >
-    insert into user (username, password,
+    insert into user_yh (username, password,
       email, phone_num, create_time, 
       update_time, credit,
       type,avatar)
@@ -59,7 +59,7 @@
       #{type,jdbcType=TINYINT},#{avatar,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.withstars.domain.User" >
-    insert into user
+    insert into user_yh
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -126,7 +126,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.withstars.domain.User" >
-    update user
+    update user_yh
     <set >
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
@@ -159,7 +159,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.withstars.domain.User" >
-    update user
+    update user_yh
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
@@ -173,6 +173,6 @@
   </update>
 
   <update id="addCredit">
-    update user set credit = credit + #{points,jdbcType=INTEGER} WHERE id = #{id,jdbcType=INTEGER}
+    update user_yh set credit = credit + #{points,jdbcType=INTEGER} WHERE id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
