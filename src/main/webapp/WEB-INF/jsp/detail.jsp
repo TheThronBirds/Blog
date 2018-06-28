@@ -4,8 +4,6 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-    out.println(basePath + "66666");
-    out.println("123");
 %>
 <!DOCTYPE html>
 <html lang="en">

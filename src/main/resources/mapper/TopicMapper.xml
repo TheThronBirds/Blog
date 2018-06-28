@@ -46,7 +46,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="click" property="click" jdbcType="INTEGER" />
     <result column="tab_id" property="tabId" jdbcType="TINYINT" />
     <association property="user_yh" javaType="com.withstars.domain.User">
@@ -90,7 +90,7 @@
   </select>
 
   <select id="selectById" parameterType="java.lang.Integer" resultMap="topicAndUserDetail">
-      SELECT topic.*,user_yh.username,user_yh.avatar from topic,user_yh where topic.user_id = user_yh.id and topic.id = #{id,jdbcType=INTEGER};
+      SELECT topic.*,user_yh.username,user_yh.avatar from topic,user_yh where topic.user_id = user_yh.id and topic.id = #{id,jdbcType=INTEGER}
   </select>
 
 

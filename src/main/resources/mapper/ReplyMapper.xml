@@ -24,7 +24,7 @@
   SELECT reply.*,user_yh.username,user_yh.avatar
   from reply,user_yh
   where reply.reply_user_id = user_yh.id and reply.topic_id = #{topicId,jdbcType=INTEGER}
-  order by create_time ASC ;
+  order by reply.create_time ASC
   </select>
 
   <select id="getRepliesNum" resultType="java.lang.Integer" parameterType="java.lang.Integer" >

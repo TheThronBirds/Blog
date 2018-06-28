@@ -52,6 +52,7 @@ public class TopicController {
     public ModelAndView toMain(HttpSession session){
         ModelAndView indexPage=new ModelAndView("cate");
         //全部主题
+        System.out.println("拦截到默认也");
         List<Topic> topics=topicService.listTopicsAndUsers();
 
         //获取统计信息
@@ -80,6 +81,7 @@ public class TopicController {
     @RequestMapping("/t/{id}")
     public ModelAndView toTopic(@PathVariable("id")Integer id,HttpSession session){
         //点击量加一
+    	System.out.println("有没有进来" + id);
         boolean ifSucc=topicService.clickAddOne(id);
         //获取主题信息
         Topic topic=topicService.selectById(id);
