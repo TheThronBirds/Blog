@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 align="center">Genesis- 开发者社区</h1>
 <h2 align="center"> 基于Spring+Spring MVC+Mybatis(Maven方式构建)</h2>
 
@@ -30,3 +31,6 @@ $ mvn jetty:run
 ```
 ## LICENSE
 `Apache 2.0`
+=======
+# Blog
+>>>>>>> branch 'master' of https://github.com/TheThronBirds/Blog.git
