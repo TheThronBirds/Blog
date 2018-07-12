@@ -73,8 +73,14 @@
             <label>
                 <input type="checkbox" id="remember">记住密码
             </label>
-            <a style="margin-left: 30%" href="#">忘记密码?</a>
+            <a style="margin-left: 30%" href="#">忘记密码?111</a>
         </div>
+        
+		<div class="form-group">
+			<label for="checkcode">验证码</label>
+			<input type="text" class="form-control" id="checkcode" name="checkcode" placeholder="请输入验证码" required="required">
+			<img id="captchaimage"  class="img-responsive center-block" style="margin-top:10px" src="/checkcode" />
+		</div>
 
         <p style="text-align: right;color: red;position: absolute" id="info"></p><br/>
             <button id="loginButton" class="btn btn-success btn-block">登录</button>
@@ -120,6 +126,7 @@
         var id =$("#username").val();
         var passwd=$("#passwd").val();
         var remember=$("#remember").prop('checked');
+        var checkcode=$("#checkcode").val();
         if( id=='' && passwd==''){
             $("#info").text("提示:账号和密码不能为空");
         }
@@ -128,6 +135,8 @@
         }
         else if( passwd ==''){
             $("#info").text("提示:密码不能为空");
+        }else if(checkcode == ''){
+        	$("#info").text("提示:验证码不能为空");
         }
         else {
             $.ajax({
@@ -135,12 +144,15 @@
                 url: "/api/loginCheck",
                 data: {
                     username:id ,
-                    password: passwd
+                    password: passwd,
+                    checkcode:checkcode
                 },
                 dataType: "json",
                 success: function(data) {
                     if(data.stateCode.trim() == "0") {
                         $("#info").text("提示:用户名不存在!");
+                    }else if(data.stateCode.trim() == "3") {
+                        $("#info").text("提示:验证码错误!");
                     } else if(data.stateCode.trim() == "1") {
                         $("#info").text("提示:密码错误!");
                     } else if(data.stateCode.trim() == "2"){
